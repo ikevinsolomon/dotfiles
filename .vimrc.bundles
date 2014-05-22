@@ -80,9 +80,9 @@
         if count(g:dotfiles_bundle_groups, 'general')
             Bundle 'scrooloose/nerdtree'
             Bundle 'altercation/vim-colors-solarized'
-            Bundle 'dotfiles/vim-colors'
+            Bundle 'spf13/vim-colors'
             Bundle 'tpope/vim-surround'
-            Bundle 'dotfiles/vim-autoclose'
+            Bundle 'spf13/vim-autoclose'
             Bundle 'kien/ctrlp.vim'
             Bundle 'terryma/vim-multiple-cursors'
             Bundle 'vim-scripts/sessionman.vim'
@@ -164,7 +164,7 @@
 
     " PHP {
         if count(g:dotfiles_bundle_groups, 'php')
-            Bundle 'dotfiles/PIV'
+            Bundle 'spf13/PIV'
             Bundle 'arnaud-lb/vim-php-namespace'
         endif
     " }
@@ -239,7 +239,7 @@
     " Misc {
         if count(g:dotfiles_bundle_groups, 'misc')
             Bundle 'tpope/vim-markdown'
-            Bundle 'dotfiles/vim-preview'
+            Bundle 'spf13/vim-preview'
             Bundle 'tpope/vim-cucumber'
             Bundle 'quentindecock/vim-cucumber-align-pipes'
             Bundle 'Puppet-Syntax-Highlighting'
