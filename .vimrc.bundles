@@ -79,6 +79,7 @@
     " General {
         if count(g:dotfiles_bundle_groups, 'general')
             Bundle 'scrooloose/nerdtree'
+            Bundle 'sickill/vim-pasta'
             Bundle 'altercation/vim-colors-solarized'
             Bundle 'spf13/vim-colors'
             Bundle 'tpope/vim-surround'
