@@ -23,40 +23,39 @@ Bundle 'gmarik/vundle'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 if executable('ag')
-	Bundle 'mileszs/ack.vim'
-	let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
-	elseif executable('ack-grep')
-	let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-	Bundle 'mileszs/ack.vim'
-	elseif executable('ack')
-	Bundle 'mileszs/ack.vim'
+    Bundle 'mileszs/ack.vim'
+    let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
+    elseif executable('ack-grep')
+    let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+    Bundle 'mileszs/ack.vim'
+    elseif executable('ack')
+    Bundle 'mileszs/ack.vim'
 endif
 
 " Setup bundle groups
 if !exists('g:vim_bundle_groups')
-	let g:vim_bundle_groups = ['plugins',]
+    let g:vim_bundle_groups = ['plugins',]
 endif
 
 if count(g:vim_bundle_groups, 'plugins')
-	Bundle 'kien/ctrlp.vim'
-	Bundle 'spf13/vim-autoclose'    
-	Bundle 'matchit.zip'     
-	Bundle 'mbbill/undotree'     
-	Bundle 'scrooloose/nerdcommenter'     
-	Bundle 'tpope/vim-fugitive'     
-	if executable('ctags')
-		Bundle 'majutsushi/tagbar'     
-	endif
-	Bundle 'joonty/vim-phpqa.git'     
-	Bundle '2072/PHP-Indenting-for-VIm'     
-	Bundle 'amirh/HTML-AutoCloseTag'     
-	Bundle "garbas/vim-snipmate"     
-	Bundle "honza/vim-snippets" 
-	Plugin 'bling/vim-airline'
-	"Bundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-	Bundle 'flazz/vim-colorschemes'
-	Bundle 'nathanaelkane/vim-indent-guides'
-	Bundle 'terryma/vim-multiple-cursors'
+    Bundle 'kien/ctrlp.vim'
+    Bundle 'spf13/vim-autoclose'    
+    Bundle 'matchit.zip'     
+    Bundle 'mbbill/undotree'     
+    Bundle 'scrooloose/nerdcommenter'     
+    Bundle 'tpope/vim-fugitive'     
+    if executable('ctags')
+        Bundle 'majutsushi/tagbar'     
+    endif
+    Bundle 'joonty/vim-phpqa.git'     
+    Bundle '2072/PHP-Indenting-for-VIm'     
+    Bundle 'amirh/HTML-AutoCloseTag'     
+    Bundle "garbas/vim-snipmate"     
+    Bundle "honza/vim-snippets" 
+    Plugin 'bling/vim-airline'
+    Bundle 'flazz/vim-colorschemes'
+    Bundle 'nathanaelkane/vim-indent-guides'
+    Bundle 'terryma/vim-multiple-cursors'
 endif
 call vundle#end() 
 
@@ -114,8 +113,6 @@ highlight Search cterm=underline
 
 " Easy motion stuff
 let g:EasyMotion_leader_key = '<Leader>'
-
-
 
 autocmd cursorhold * set nohlsearch
 autocmd cursormoved * set hlsearch
@@ -209,25 +206,21 @@ noremap / /\v
 vnoremap / /\v
 
 
-"Shortcut for editing  vimrc file in a new tab
+" Shortcut for editing  vimrc file in a new tab
 nmap ,ev :tabedit $MYVIMRC<cr>
 
-"Save the current with Ctrl+s
-imap <C-s> <esc>:w<cr>
-
-
-"Shortcut to fold tags with leader (usually \) + ft
+" Shortcut to fold tags with leader (usually \) + ft
 nnoremap <leader>ft Vatzf
 
-"Opens a vertical split and switches over (\v)
+" Opens a vertical split and switches over (\v)
 nnoremap <leader>v <C-w>v<C-w>l
 
-"Hard-wrap paragraphs of text
+" Hard-wrap paragraphs of text
 nnoremap <leader>q gqip
 
-" dont know what this mapping is 
+" Save the current with Ctrl+s
 nmap <c-s> :w<CR>
-imap <c-s> <Esc>:w<CR>a
+imap <C-s> <esc>:w<cr>
 
 " map jj to ESC
 inoremap jj <ESC>
@@ -358,7 +351,7 @@ imap jj <esc>
 " Source the vimrc file after saving it. This way, you don't have to reload
 " Vim to see the changes.
 if has("autocmd")
-	autocmd bufwritepost .vimrc source $MYVIMRC
+    autocmd bufwritepost .vimrc source $MYVIMRC
 endif
 
 "Bubble multiple lines
@@ -376,49 +369,49 @@ nmap <C-Down> ddp
 
 " TagBar {
 if isdirectory(expand("~/.vim/bundle/tagbar/"))
-	nnoremap <silent> <leader>tt :TagbarToggle<CR>
+    nnoremap <silent> <leader>tt :TagbarToggle<CR>
 
-	" If using go please install the gotags program using the following
-	" go install github.com/jstemmer/gotags
-	" And make sure gotags is in your path
-	let g:tagbar_type_go = {
-	\ 'ctagstype' : 'go',
-	\ 'kinds'     : [  'p:package', 'i:imports:1', 'c:constants', 'v:variables',
-	\ 't:types',  'n:interfaces', 'w:fields', 'e:embedded', 'm:methods',
-	\ 'r:constructor', 'f:functions' ],
-	\ 'sro' : '.',
-	\ 'kind2scope' : { 't' : 'ctype', 'n' : 'ntype' },
-	\ 'scope2kind' : { 'ctype' : 't', 'ntype' : 'n' },
-	\ 'ctagsbin'  : 'gotags',
-	\ 'ctagsargs' : '-sort -silent'
-	\ }
+    " If using go please install the gotags program using the following
+    " go install github.com/jstemmer/gotags
+    " And make sure gotags is in your path
+    let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [  'p:package', 'i:imports:1', 'c:constants', 'v:variables',
+    \ 't:types',  'n:interfaces', 'w:fields', 'e:embedded', 'm:methods',
+    \ 'r:constructor', 'f:functions' ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : { 't' : 'ctype', 'n' : 'ntype' },
+    \ 'scope2kind' : { 'ctype' : 't', 'ntype' : 'n' },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+    \ }
 endif
 "}
 
 
 " Fugitive {
 if isdirectory(expand("~/.vim/bundle/vim-fugitive/"))
-	nnoremap <silent> <leader>gs :Gstatus<CR>
-	nnoremap <silent> <leader>gd :Gdiff<CR>
-	nnoremap <silent> <leader>gc :Gcommit<CR>
-	nnoremap <silent> <leader>gb :Gblame<CR>
-	nnoremap <silent> <leader>gl :Glog<CR>
-	nnoremap <silent> <leader>gp :Git push<CR>
-	nnoremap <silent> <leader>gr :Gread<CR>
-	nnoremap <silent> <leader>gw :Gwrite<CR>
-	nnoremap <silent> <leader>ge :Gedit<CR>
-	" Mnemonic _i_nteractive
-	nnoremap <silent> <leader>gi :Git add -p %<CR>
-	nnoremap <silent> <leader>gg :SignifyToggle<CR>
+    nnoremap <silent> <leader>gs :Gstatus<CR>
+    nnoremap <silent> <leader>gd :Gdiff<CR>
+    nnoremap <silent> <leader>gc :Gcommit<CR>
+    nnoremap <silent> <leader>gb :Gblame<CR>
+    nnoremap <silent> <leader>gl :Glog<CR>
+    nnoremap <silent> <leader>gp :Git push<CR>
+    nnoremap <silent> <leader>gr :Gread<CR>
+    nnoremap <silent> <leader>gw :Gwrite<CR>
+    nnoremap <silent> <leader>ge :Gedit<CR>
+    " Mnemonic _i_nteractive
+    nnoremap <silent> <leader>gi :Git add -p %<CR>
+    nnoremap <silent> <leader>gg :SignifyToggle<CR>
 endif
 " }
 
 
 "indent_guides {
 if isdirectory(expand("~/.vim/bundle/vim-indent-guides/"))
-	let g:indent_guides_start_level = 2
-	let g:indent_guides_guide_size = 1
-	let g:indent_guides_enable_on_vim_startup = 0
+    let g:indent_guides_start_level = 2
+    let g:indent_guides_guide_size = 1
+    let g:indent_guides_enable_on_vim_startup = 0
 endif
 " }
 
@@ -452,8 +445,8 @@ endif
 
 " Powerline {
 "if isdirectory(expand("~/.vim/bundle/powerline/"))
-	
-	"let g:Powerline_symbols = 'fancy'
+    
+    "let g:Powerline_symbols = 'fancy'
     "" Enable Airline always
     "set laststatus=2
 
@@ -466,8 +459,8 @@ endif
     "set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
 
     "" Powerline (Fancy thingy at bottom stuff)
-	"set encoding=utf-8 " Necessary to show Unicode glyphs
-	"set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+    "set encoding=utf-8 " Necessary to show Unicode glyphs
+    "set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 
     
 "endif
@@ -484,50 +477,48 @@ let g:phpqa_codesniffer_autorun = 0
 let g:phpqa_codecoverage_autorun = 1"
 
 
-
-
 " ---------------------------------------------
 " Utility function settings
 " ---------------------------------------------
 
 " strip whitespace {
 function! StripTrailingWhitespace()
-	" Preparation: save last search, and cursor position.
-	let _s=@/
-	let l = line(".")
-	let c = col(".")
-	" do the business:
-	%s/\s\+$//e
-	" clean up: restore previous search history, and cursor position
-	let @/=_s
-	call cursor(l, c)
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " do the business:
+    %s/\s\+$//e
+    " clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
 endfunction
 " }
 
 " WrapRelativeMotion {
 function! WrapRelativeMotion(key, ...)
-	let vis_sel=""
-	if a:0
-	let vis_sel="gv"
-	endif
-	if &wrap
-	execute "normal!" vis_sel . "g" . a:key
-	else
-	execute "normal!" vis_sel . a:key
-	endif
+    let vis_sel=""
+    if a:0
+    let vis_sel="gv"
+    endif
+    if &wrap
+    execute "normal!" vis_sel . "g" . a:key
+    else
+    execute "normal!" vis_sel . a:key
+    endif
 endfunction
 " }
 
 " Javascript folding {
 function! JavaScriptFold() 
-	setl foldmethod=syntax
-	setl foldlevelstart=1
-	syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
+    setl foldmethod=syntax
+    setl foldlevelstart=1
+    syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
 
-	function! FoldText()
-	return substitute(getline(v:foldstart), '{.*', '{...}', '''}')
-	endfunction
-	setl foldtext=FoldText()
+    function! FoldText()
+    return substitute(getline(v:foldstart), '{.*', '{...}', '''}')
+    endfunction
+    setl foldtext=FoldText()
 endfunction
 " }
 
@@ -536,30 +527,30 @@ au FileType javascript setl fen
 
 " Renaming files {
 function! RenameFile()
-	let old_name = expand('%')
-	let new_name = input('New file name: ', expand('%'), 'file')
-	if new_name != '' && new_name != old_name
-	exec ':saveas ' . new_name
-	exec ':silent !rm ' . old_name
-	redraw!
-	endif
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+    endif
 endfunction
 " }
 map <leader>rn :call RenameFile()<cr>
 
 " Toggle Folding {
 function! ToggleFolding()
-	let curr_fold=&foldmethod
-	let en='off'
+    let curr_fold=&foldmethod
+    let en='off'
 
-	if curr_fold == 'syntax'
-		:setlocal foldmethod=manual
-		else
-		let en='on'
-		:setlocal foldmethod=syntax
-	endif
+    if curr_fold == 'syntax'
+        :setlocal foldmethod=manual
+        else
+        let en='on'
+        :setlocal foldmethod=syntax
+    endif
 
-	echo "Toggled folding ".en
+    echo "Toggled folding ".en
 endfunction
 " }
 
@@ -599,20 +590,5 @@ function! AddDependency()
 '
 endfunction
 nmap ,2  :call AddDependency()<cr>
-
-
-" Concept - load underlying class for Laravel
-function! FacadeLookup()
-    let facade = input('Facade Name: ')
-    let classes = {
-\       'Form': 'Html/FormBuilder.php',
-\       'Html': 'Html/HtmlBuilder.php',
-\       'File': 'Filesystem/Filesystem.php',
-\       'Eloquent': 'Database/Eloquent/Model.php'
-\   }
-
-    execute ":edit vendor/laravel/framework/src/Illuminate/" . classes[facade]
-endfunction
-nmap ,lf :call FacadeLookup()<cr>
 
 
