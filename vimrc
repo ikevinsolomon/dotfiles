@@ -88,14 +88,6 @@
     set guioptions-=r
     set guioptions-=R
 
-    
-    " hi LineNr guibg=bg                          " We'll fake a custom left padding for each window.
-    "set foldcolumn=2
-    "hi foldcolumn guibg=bg
-
-    
-    "hi vertsplit guifg=bg guibg=bg               " Get rid of ugly split borders.
-
 
 " ---------------------------------------------
 " Remaps
