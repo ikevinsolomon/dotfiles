@@ -1,10 +1,23 @@
 " ---------------------------------------------
 " Init vimrc
 " ---------------------------------------------
-    set nocompatible              " be iMproved, required
-    filetype on                  " required
-    filetype plugin on
-    syntax on                  " required
+    set nocompatible                           " be iMproved, required
+    filetype on                                " required
+    filetype plugin on                         " required
+    syntax enable                              " required
+    set backspace=indent,eol,start             " Make backspace behave like every other editor.
+    let mapleader = ','                        " The default is \, but a comma is much better.
+    set number                                 " Let's activate line numbers.
+    set noerrorbells visualbell t_vb=          " No damn bells!
+    set autowriteall                           " Automatically write the file when switching buffers.
+    set complete=.,w,b,u                       " Set our desired autocompletion matching.
+    set tabstop=8
+    set expandtab
+    set softtabstop=4
+    set shiftwidth=4
+    set mouse=a
+    set paste
+
 
 " ---------------------------------------------
 " Vundle plugin manager
@@ -15,21 +28,10 @@
     call vundle#begin()
 
     " Set path for my vim plugins
-    " call vundle#rc('/.vim/plugins/')
-
     " let Vundle manage Vundle and set the required dependencies
-    Bundle 'gmarik/vundle'
-    Bundle 'MarcWeber/vim-addon-mw-utils'
-    Bundle 'tomtom/tlib_vim'
-    if executable('ag')
-        Bundle 'mileszs/ack.vim'
-        let g:ackprg = 'ag --nogroup --nocolor --column --smart-case'
-        elseif executable('ack-grep')
-        let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-        Bundle 'mileszs/ack.vim'
-        elseif executable('ack')
-        Bundle 'mileszs/ack.vim'
-    endif
+    Plugin 'VundleVim/Vundle.vim'
+    Plugin 'MarcWeber/vim-addon-mw-utils'
+    Plugin 'tomtom/tlib_vim'
 
     " Setup bundle groups
     if !exists('g:vim_bundle_groups')
@@ -37,34 +39,35 @@
     endif
 
     if count(g:vim_bundle_groups, 'plugins')
-        Bundle 'tpope/vim-sensible'
-        Bundle 'kien/ctrlp.vim'
-        Bundle 'spf13/vim-autoclose'
-        Bundle 'scrooloose/nerdtree'
-        Bundle 'matchit.zip'
-        Bundle 'mbbill/undotree'
-        Bundle 'scrooloose/nerdcommenter'
-        Bundle 'tpope/vim-fugitive'
+        
+        Plugin 'tpope/vim-vinegar'
+        Plugin 'scrooloose/nerdtree'
+        Plugin 'scrooloose/nerdcommenter'
+        Plugin 'ctrlpvim/ctrlp.vim'
+        Plugin 'rking/ag.vim'
+        Plugin 'skwp/greplace.vim'
+        Plugin 'garbas/vim-snipmate'
+        Plugin 'tpope/vim-surround'
+        Plugin 'StanAngeloff/php.vim'
+        Plugin 'arnaud-lb/vim-php-namespace'
+        Plugin 'ervandew/supertab'
+        Plugin 'stephpy/vim-php-cs-fixer'
+        Plugin 'tobyS/vmustache'
+        Plugin 'tobyS/pdv'
+        Plugin 'SirVer/ultisnips'
+        Plugin 'spf13/vim-autoclose'
+        Plugin 'mbbill/undotree'
+        Plugin 'tpope/vim-fugitive'
+
         if executable('ctags')
-            Bundle 'majutsushi/tagbar'
+            Plugin 'majutsushi/tagbar'
         endif
-        Bundle 'joonty/vim-phpqa.git'
-        Bundle '2072/PHP-Indenting-for-VIm'
-        Bundle 'amirh/HTML-AutoCloseTag'
-        Bundle "garbas/vim-snipmate"
-        Bundle "honza/vim-snippets"
+
         Plugin 'bling/vim-airline'
         Plugin 'vim-airline/vim-airline-themes'
-        Bundle 'flazz/vim-colorschemes'
-        Bundle 'nathanaelkane/vim-indent-guides'
-        Bundle 'terryma/vim-multiple-cursors'
-        Plugin 'angloss/vim-javascript'
-        Plugin 'terryma/vim-expand-region'
-        Plugin 'tpope/vim-sleuth'
-        Plugin 'godlygeek/tabular'
-        Plugin 'ervandew/supertab'
-        Bundle "mattn/emmet-vim"
-        Bundle "jdkanani/vim-material-theme"
+        Plugin 'flazz/vim-colorschemes'
+        Plugin 'terryma/vim-multiple-cursors'
+        Plugin 'pangloss/vim-javascript'
 
     endif
     call vundle#end()
@@ -72,209 +75,54 @@
 " ---------------------------------------------
 " Vim UI
 " ---------------------------------------------
-    "Enable filetypes
-    set nocompatible   " Disable vi-compatibility
-    set t_Co=256
-    set encoding=utf-8
-    scriptencoding utf-8
-    set relativenumber
-    set regexpengine=1
-    syntax enable
-    set background=dark
-    colorscheme solarized 
-    set guifont=inconsolata\ for\ powerline:h11
-    set guioptions-=T " Removes top toolbar
-    set guioptions-=r " Removes right hand scroll bar
-    set go-=L " Removes left hand scroll bar
-    set linespace=15
+    
+    colorscheme atom-dark
+    set t_CO=256                                " Use 256 colors. This is useful for Terminal Vim.
+    set guifont=Fira\ Code:h17                  " Set the default font family and size.
+    set guioptions-=e                           " We don't want Gui tabs.
+    set linespace=16                            " Macvim-specific line-height.
+    set lines=999
 
-    set showmode                    " always show what mode we're currently editing in
-    set nowrap                      " don't wrap lines
-    set tabstop=4                   " a tab is four spaces
-    set smarttab
-    set tags=tags
-    set softtabstop=4               " when hitting <BS>, pretend like a tab is removed, even if spaces
-    set expandtab                   " expand tabs by default (overloadable per file type later)
-    set shiftwidth=4                " number of spaces to use for autoindenting
-    set shiftround                  " use multiple of shiftwidth when indenting with '<' and '>'
-    set backspace=indent,eol,start  " allow backspacing over everything in insert mode
-    set autoindent                  " always set autoindenting on
-    set copyindent                  " copy the previous indentation on autoindenting
-    set number                      " always show line numbers
-    set ignorecase                  " ignore case when searching
-    set smartcase                   " ignore case if search pattern is all lowercase,
-    set timeout timeoutlen=200 ttimeoutlen=100
-    set visualbell           " don't beep
-    set noerrorbells         " don't beep
-    set autowrite  "Save on buffer switch
-    set mouse=a
-    set foldenable                  " Auto fold code
-    set list
-    set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+    set guioptions-=l                           " Disable Gui scrollbars.
+    set guioptions-=L
+    set guioptions-=r
+    set guioptions-=R
 
-    " With a map leader it's possible to do extra key combinations
-    " like <leader>w saves the current file
-    let mapleader = ","
-    let g:mapleader = ","
+    
+    " hi LineNr guibg=bg                          " We'll fake a custom left padding for each window.
+    "set foldcolumn=2
+    "hi foldcolumn guibg=bg
 
-    "Load the current buffer in Chrome
-    nmap ,c :!open -a Google\ Chrome<cr>
-
-    "Show (partial) command in the status line
-    set showcmd
-
-    highlight Search cterm=underline
-
-    " Swap files out of the project root
-    "set backupdir=~/.vim/backup//
-    "set directory=~/.vim/swap//
-
-    " Easy motion stuff
-    let g:EasyMotion_leader_key = '<Leader>'
-
-    autocmd cursorhold * set nohlsearch
-    autocmd cursormoved * set hlsearch
-
-    " Remove search results
-    command! H let @/=""
-
-    " If you prefer the Omni-Completion tip window to close when a selection is
-    " made, these lines close it on movement in insert mode or when leaving
-    " insert mode
-    autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-    autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
-    " Abbreviations
-    abbrev pft PHPUnit_Framework_TestCase
-
-    abbrev gm !php artisan generate:model
-    abbrev gc !php artisan generate:controller
-    abbrev gmig !php artisan generate:migration
-
-    " Auto-remove trailing spaces
-    autocmd BufWritePre *.php :%s/\s\+$//e
-
-
-    " I don't want to pull up these folders/files when calling CtrlP
-    set wildignore+=*/vendor/**
-    set wildignore+=*/public/forum/**
-
+    
+    "hi vertsplit guifg=bg guibg=bg               " Get rid of ugly split borders.
 
 
 " ---------------------------------------------
 " Remaps
 " ---------------------------------------------
 
-    "Map the leadeer
-    let mapleader = ','
+    " Make it easy to edit the Vimrc file.
+    nmap <Leader>ev :tabedit $MYVIMRC<cr>
+    nmap <Leader>es :e ~/.vim/snippets/
 
-    " Open splits
-    nmap vs :vsplit<cr>
-    nmap sp :split<cr>
+    " Add simple highlight removal.
+    nmap <Leader><space> :nohlsearch<cr>
 
-    " Create/edit file in the current directory
-    nmap :ed :edit %:p:h/
+    " Quickly browse to any tag/symbol in the project.
+    " Tip: run ctags -R to regenerated the index.
+    nmap <Leader>f :tag<space>
 
-    " Familiar commands for file/symbol browsing
-    map <D-p> :CtrlP<cr>
-    map <C-r> :CtrlPBufTag<cr>
-
-    " Edit todo list for project
-    nmap ,todo :e todo.txt<cr>
-
-    " Laravel framework commons
-    nmap <leader>lr :e app/routes.php<cr>
-    nmap <leader>lca :e app/config/app.php<cr>81Gf(%O
-    nmap <leader>lcd :e app/config/database.php<cr>
-    nmap <leader>lc :e composer.json<cr>
-
-    " Fast saves
-    nmap <leader>w :w!<cr>
-
-    " Down is really the next line
-    nnoremap j gj
-    nnoremap k gk
-
-    "Easy escaping to normal model
-    imap jj <esc>
-
-    "Auto change directory to match current file ,cd
-    nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
-
-    "Resize vsplit
-    nmap <C-v> :vertical resize +5<cr>
-    nmap 25 :vertical resize 40<cr>
-    nmap 50 <c-w>=
-    nmap 75 :vertical resize 120<cr>
-
-    nmap <C-b> :NERDTreeToggle<cr>
-
-    " Create split below
-    nmap :sp :rightbelow sp<cr>
-
-    " Quickly go forward or backward to buffer
-    nmap :bp :BufSurfBack<cr>
-    nmap :bn :BufSurfForward<cr>
-
-    " Run PHPUnit tests
-    map <Leader>t :!phpunit %<cr>
-
-    "sane searches
-    noremap / /\v
-    vnoremap / /\v
+    " Sort PHP use statements
+    " http://stackoverflow.com/questions/11531073/how-do-you-sort-a-range-of-lines-by-length
+    vmap <Leader>su ! awk '{ print length(), $0 \| "sort -n \| cut -d\\  -f2-" }'<cr>
 
 
-    " Shortcut for editing  vimrc file in a new tab
-    nmap ,ev :tabedit $MYVIMRC<cr>
+    " Super tabs ! Fuck yeah!
+    map <S-H> gT
+    map <S-L> gt
 
-    " Shortcut to fold tags with leader (usually \) + ft
-    nnoremap <leader>ft Vatzf
-
-    " Opens a vertical split and switches over (\v)
-    nnoremap <leader>v <C-w>v<C-w>l
-
-    " Hard-wrap paragraphs of text
-    nnoremap <leader>q gqip
-
-    " Save the current with Ctrl+s
-    nmap <c-s> :w<CR>
-    imap <C-s> <esc>:w<cr>
-
-    " map jj to ESC
-    inoremap jj <ESC>
-
-    " Keep search matches in the middle of the window.
-    nnoremap n nzzzv
-    nnoremap N Nzzzv
-
-    " Same when jumping around
-    nnoremap g; g;zz
-    nnoremap g, g,zz
-    nnoremap <c-o> <c-o>zz
-
-
-
-    " Instead of reverting the cursor to the last position in the buffer, we
-    " set it to the first line when editing a git commit message
-    au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
-
-    set showcmd
-    set ofu=syntaxcomplete#Complete
-    autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-    autocmd FileType phtml set omnifunc=phpcomplete#CompletePHP
-    autocmd FileType python set omnifunc=pythoncomplete#Complete
-    autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-    autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType c set omnifunc=ccomplete#Complete
-
-    "White space clean up
-    autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
-
-    " visual shifting (does not exit Visual mode)
-    vnoremap < <gv
-    vnoremap > >gv
+    " Find merge conflict markers
+    map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 
     " Shift keys :/
     command! -bang -nargs=* -complete=file E e<bang> <args>
@@ -287,27 +135,51 @@
     command! -bang QA qa<bang>
     command! -bang Qa qa<bang>
 
-    " Yank from the cursor to the end of the line, to be consistent with C and D.
-    nnoremap Y y$
+    " visual shifting (does not exit Visual mode)
+    vnoremap < <gv
+    vnoremap > >gv
 
-    " Find merge conflict markers
-    map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
+    " White space clean up
+    autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
+
+    " Fast saves
+    nmap <leader>w :w!<cr>
+
+    "sane searches
+    noremap / /\v
+    vnoremap / /\v
+
+    " Down is really the next line
+    nnoremap j gj
+    nnoremap k gk
+
+    "Easy escaping to normal model
+    imap jj <esc>
+
+    "Auto change directory to match current file ,cd
+    nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
 
 
-    " Map <Leader>ff to display all lines with keyword under cursor
-    " and ask which one to jump to
-    nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+    " Instead of reverting the cursor to the last position in the buffer, we
+    " set it to the first line when editing a git commit message
+    au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 
-    " Super tabs ! Fuck yeah!
-    map <S-H> gT
-    map <S-L> gt
+    " Keep search matches in the middle of the window.
+    nnoremap n nzzzv
+    nnoremap N Nzzzv
 
-    " Unhighlight the search keyword
-    nmap <silent> <leader>/ :set invhlsearch<CR>
+    " Same when jumping around
+    nnoremap g; g;zz
+    nnoremap g, g,zz
+    nnoremap <c-o> <c-o>zz
 
     " Allow using the repeat operator with a visual selection (!)
     " http://stackoverflow.com/a/8064607/127816
     vnoremap . :normal .<CR>
+
+
+    " Yank from the cursor to the end of the line, to be consistent with C and D.
+    nnoremap Y y$
 
     " Some helpers to edit mode
     " http://vimcasts.org/e/14
@@ -316,6 +188,8 @@
     map <leader>es :sp %%
     map <leader>ev :vsp %%
     map <leader>et :tabe %%
+
+    
     " Adjust viewports to the same size
     map <Leader>= <C-w>=
 
@@ -323,17 +197,9 @@
     " and ask which one to jump to
     nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
-    " Easier formatting
-    nnoremap <silent> <leader>q gwip
 
     " Repaint the screen
     nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
-
-    "Easy Window toggle
-    map <C-J> <C-W>j<C-W>_
-    map <C-K> <C-W>k<C-W>_
-    map <C-L> <C-W>l<C-W>_
-    map <C-H> <C-W>h<C-W>_
 
     " Map g* keys in Normal, Operator-pending, and Visual+select
     noremap $ :call WrapRelativeMotion("$")<CR>
@@ -352,38 +218,104 @@
     vnoremap 0 :<C-U>call WrapRelativeMotion("0", 1)<CR>
     vnoremap <Home> :<C-U>call WrapRelativeMotion("0", 1)<CR>
     vnoremap ^ :<C-U>call WrapRelativeMotion("^", 1)<CR>
+    
+    set splitbelow                                 " Make splits default to below...
+    set splitright                                 " And to the right. This feels more natural. 
 
+   "Easy Window toggle
+    map <C-J> <C-W>j<C-W>_
+    map <C-K> <C-W>k<C-W>_
+    map <C-L> <C-W>l<C-W>_
+    map <C-H> <C-W>h<C-W>_ 
 
-    "http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
-    set completeopt=longest,menuone
-    inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-    inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-    \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-    inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-    \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+    " Automatically source the Vimrc file on save.
+    augroup autosourcing
+        autocmd!
+        autocmd BufWritePost .vimrc source %
+    augroup END
 
-
-    "Map escape key to jj -- much faster
-    imap jj <esc>
-
-    " Source the vimrc file after saving it. This way, you don't have to reload
-    " Vim to see the changes.
-    if has("autocmd")
-        autocmd bufwritepost .vimrc source $MYVIMRC
-    endif
-
-    "Bubble multiple lines
-    vmap <C-Up> xkP`[V`]
-    vmap <C-Down> xp`[V`]
-
-    "Bubble single lines (kicks butt)
-    "http://vimcasts.org/episodes/bubbling-text/
-    nmap <C-Up> ddkP
-    nmap <C-Down> ddp
+    " Laravel-Specific"
+    nmap <Leader>lr :e app/Http/routes.php<cr>
+    nmap <Leader>lm :!php artisan make:
+    nmap <Leader><Leader>c :e app/Http/Controllers/<cr>
+    nmap <Leader><Leader>m :CtrlP<cr>app/
+    nmap <Leader><Leader>v :e resources/views/<cr>
 
 " ---------------------------------------------
 " Plugin settings
 " ---------------------------------------------
+
+    
+    " ---------------------------------------------
+    " CtrlP settings
+    " ---------------------------------------------
+    " CtrlP {
+    if isdirectory(expand("~/.vim/bundle/ctrlp/"))
+        let g:ctrlp_custom_ignore = 'node_modules\DS_Store\|git'
+        let g:ctrlp_match_window = 'top,order:ttb,min:1,max:30,results:30'
+
+        nmap <D-p> :CtrlP<cr>
+        nmap <D-r> :CtrlPBufTag<cr>
+        nmap <D-e> :CtrlPMRUFiles<cr>
+
+    endif
+    "}
+
+
+    " ---------------------------------------------
+    " Greplace settings
+    " ---------------------------------------------
+    " Greplace {
+    if isdirectory(expand("~/.vim/bundle/greplace/"))
+        set grepprg=ag                              "We want to use Ag for the search.
+        let g:grep_cmd_opts = '--line-numbers --noheading'
+    endif
+    "}
+
+
+    " ---------------------------------------------
+    " vim-php-cs-fixer settings
+    " ---------------------------------------------
+    " vim-php-cs-fixer {
+    if isdirectory(expand("~/.vim/bundle/vim-php-cs-fixer/"))
+        let g:php_cs_fixer_level = "psr2"  
+        nnoremap <silent><leader>pf :call PhpCsFixerFixFile()<CR>
+    endif
+    "}
+
+
+    " ---------------------------------------------
+    " pdv settings
+    " ---------------------------------------------
+    " pdv {
+    if isdirectory(expand("~/.vim/bundle/pdv/"))
+        let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
+        nnoremap <leader>d :call pdv#DocumentWithSnip()<CR>
+    endif
+    "}
+
+
+    " ---------------------------------------------
+    " Ultisnips settings
+    " ---------------------------------------------
+    " ultisnips {
+    if isdirectory(expand("~/.vim/bundle/ultisnips/"))
+        let g:UltiSnipsExpandTrigger="<tab>"
+        let g:UltiSnipsJumpForwardTrigger="<tab>"
+        let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+    endif
+    "}
+
+
+    " ---------------------------------------------
+    " NerdTree settings
+    " ---------------------------------------------
+    " CtrlP {
+    if isdirectory(expand("~/.vim/bundle/nerdtree/"))
+        let NERDTreeHijackNetrw = 0
+        nmap <D-1> :NERDTreeToggle<cr>
+    endif
+    "}
 
     " ---------------------------------------------
     " TagBar settings
@@ -470,38 +402,21 @@
     endif
     " }
 
+
     " ---------------------------------------------
-    " Powerline settings
+    " PHPQA settings
     " ---------------------------------------------
-    " Powerline {
-    "if isdirectory(expand("~/.vim/bundle/powerline/"))
+    " PHPQA {
+        " Don't run messdetector on save (default = 1)
+        let g:phpqa_messdetector_autorun = 0
 
-        "let g:Powerline_symbols = 'fancy'
-        "" Enable Airline always
-        "set laststatus=2
+        " Don't run codesniffer on save (default = 1)
+        let g:phpqa_codesniffer_autorun = 0
 
-        "" Broken down into easily includeable segments
-        "set statusline=%<%f\                     " Filename
-        "set statusline+=%w%h%m%r                 " Options
-        "set statusline+=%{fugitive#statusline()} " Git Hotness
-        "set statusline+=\ [%{&ff}/%Y]            " Filetype
-        "set statusline+=\ [%{getcwd()}]          " Current dir
-        "set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+        " Show code coverage on load (default = 0)
+        let g:phpqa_codecoverage_autorun = 1"
 
-        "" Powerline (Fancy thingy at bottom stuff)
-        "set encoding=utf-8 " Necessary to show Unicode glyphs
-        "set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-    "endif
     " }
-
-    " Don't run messdetector on save (default = 1)
-    let g:phpqa_messdetector_autorun = 0
-
-    " Don't run codesniffer on save (default = 1)
-    let g:phpqa_codesniffer_autorun = 0
-
-    " Show code coverage on load (default = 0)
-    let g:phpqa_codecoverage_autorun = 1"
 
 
 " ---------------------------------------------
@@ -580,7 +495,24 @@ function! ToggleFolding()
     echo "Toggled folding ".en
 endfunction
 " }
-
 map <Leader>tf :call ToggleFolding()<CR>
 
+" Insert USE namespace {
+function! IPhpInsertUse()
+    call PhpInsertUse()
+    call feedkeys('a',  'n')
+endfunction
+autocmd FileType php inoremap <Leader>n <Esc>:call IPhpInsertUse()<CR>
+autocmd FileType php noremap <Leader>n :call PhpInsertUse()<CR>
+" }
+
+
+" Expand Class {
+function! IPhpExpandClass()
+    call PhpExpandClass()
+    call feedkeys('a', 'n')
+endfunction
+autocmd FileType php inoremap <Leader>nf <Esc>:call IPhpExpandClass()<CR>
+autocmd FileType php noremap <Leader>nf :call PhpExpandClass()<CR>
+" }
 
