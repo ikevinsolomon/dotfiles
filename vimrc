@@ -1,7 +1,5 @@
+"-------------VIM init--------------"
 set nocompatible              						"We want the latest Vim settings/options.
-
-so ~/.vim/plugins.vim
-
 syntax enable
 set backspace=indent,eol,start                      "Make backspace behave like every other editor.
 let mapleader = ',' 						    	"The default is \, but a comma is much better.
@@ -15,6 +13,40 @@ set softtabstop=4
 set shiftwidth=4
 set paste
 
+"-------------plugins--------------"
+filetype off                  " required
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-vinegar'
+Plugin 'scrooloose/nerdtree'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'rking/ag.vim'
+Plugin 'skwp/greplace.vim'
+Plugin 'kristijanhusak/vim-hybrid-material'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
+Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-fugitive'
+Plugin 'StanAngeloff/php.vim'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'pangloss/vim-javascript'
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'arnaud-lb/vim-php-namespace'
+Plugin 'ervandew/supertab'
+Plugin 'stephpy/vim-php-cs-fixer'
+Plugin 'tobyS/vmustache'
+Plugin 'tobyS/pdv'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
 
 
 "-------------Visuals--------------"
@@ -36,13 +68,13 @@ hi foldcolumn ctermbg=bg
 "Get rid of ugly split borders.
 hi vertsplit ctermbg=bg ctermbg=bg
 
+"-------------Set backup dir--------------"
+set nobackup
+set nowritebackup
 
 "-------------Search--------------"
 set hlsearch								      "Highlight all matched terms.
 set incsearch								      "Incrementally highlight, as we type.
-
-
-
 
 "-------------Split Management--------------"
 set splitbelow 								      "Make splits default to below...
@@ -52,7 +84,6 @@ nmap <C-J> <C-W><C-J>                             "We'll set simpler mappings to
 nmap <C-K> <C-W><C-K>
 nmap <C-H> <C-W><C-H>
 nmap <C-L> <C-W><C-L>
-
 
 "-------------Shift Keys--------------"
 command! -bang -nargs=* -complete=file E e<bang> <args>
@@ -98,6 +129,12 @@ nmap <Leader>es :e ~/.vim/snippets/
 
 "Add simple highlight removal.
 nmap <Leader><space> :nohlsearch<cr>
+
+"Faster Saves.
+nmap <Leader>w :w<cr>
+
+"Faster Saves.
+nmap <Leader>q :bd<cr>
 
 "Quickly browse to any tag/symbol in the project.
 "Tip: run ctags -R to regenerated the index.
@@ -148,13 +185,12 @@ nnoremap <silent><leader>pf :call PhpCsFixerFixFile()<CR>
 let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
 
 nnoremap <leader>d :call pdv#DocumentWithSnip()<CR>
+"/
+"/  Supertab
+"/
+let g:SuperTabDefaultCompletionType = "<c-n>"
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : exists("g:loaded_snips") ? "\<C-r>=TriggerSnippet()\<CR>" : "\<Tab>"
 
-"/
-"/ Ultisnips
-"/
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 "/
 "/  Fugitive
@@ -175,8 +211,7 @@ nnoremap <silent> <leader>gg :SignifyToggle<CR>
 "/
 "/ Airline
 "/
-set laststatus=2
-" Broken down into easily includeable segments
+set laststatus=2 " Broken down into easily includeable segments
 set statusline=%<%f\                                   " Filename
 set statusline+=%w%h%m%r                               " Options
 set statusline+=%{fugitive#statusline()}               " Git Hotness
@@ -243,7 +278,31 @@ function! StripTrailingWhitespace()
     let @/=_s
     call cursor(l, c)
 endfunction
-autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call StripTrailingWhitespace()<CR>
+autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
 
 "-------------Tips and Reminders--------------"
 " - Press 'zz' to instantly center the line where the cursor is located.
+"- (Custom Mapping) Press ',f' to search for tags ( provide method name )
+"- Press ':ts' to list tags found from search
+"- Press ':tn' to go to next tag, and ':tp' to go the previous tag
+"- Press 'Ctrl+]' to jump to where a method was initialized
+"- Press 'Ctrl+^' to jump up to where a method is used ( might need to list them as well
+"- Press 'Cmd+e' to select file from previous history
+"- Press '-' to list current directory ( full screen )
+"- Press 'Cmd+1' to open NERDTree
+"- Press 'm+a' in NERDTree window to create a directory or file in your current working directory
+"- Press ':Gsearch' to do a fast search and replace across specific directories
+"- Press ':s' inside of Gsearch to set the parameters for your replacement logic ( e.g. ':s+/ChangeThis/ToThis' )
+"- Press ':Ag' to do a quick project search via the_silver_searcher package
+"= Press '<Number>+>" to indent a single line of block of elements by a certain number
+"- Press 'v+i+t' to highlight everything inside of targeted element
+"- Press ']+p' to paste your snippets with respect to present indentations
+"= Press 'cs + <what you're changing> + <what you want it to be>' to change surrounding tag, quotes, parenthesis, etc.
+"- Press 'cst + <tag you're changing> + <tag you want>' to change surrounding html tags to whatever your choice may be
+"- Press 'dst' to remove surrounding tags
+"- Press 'ds + <what to remove>' to remove sorrounding symbols/characters
+"- Press '<Highlight Something> + <shift>-S + <opening tag>' to wrap the
+"highlighted text in a certain html tag of your choice
+"- Press 'gg + = + shift + G' to fix the indent for an entire file
+"- Press '= + %' on open or close brackets to fix indentation for a specific
+"block
